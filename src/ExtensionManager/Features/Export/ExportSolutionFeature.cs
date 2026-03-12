@@ -1,6 +1,9 @@
 using ExtensionManager.Manifest;
+using ExtensionManager.UI;
 using ExtensionManager.UI.Worker;
+using ExtensionManager.VisualStudio.Documents;
 using ExtensionManager.VisualStudio.Extensions;
+using ExtensionManager.VisualStudio.MessageBox;
 using ExtensionManager.VisualStudio.Solution;
 
 namespace ExtensionManager.Features.Export;
@@ -9,8 +12,8 @@ public sealed class ExportSolutionFeature : ExportFeatureBase
 {
     private readonly IVSSolutions _solutions;
 
-    public ExportSolutionFeature(Args args, IVSSolutions solutions)
-        : base(args)
+    public ExportSolutionFeature(IThisVsixInfo vsixInfo, IVSDocuments documents, IVSMessageBox messageBox, IVSExtensions extensions, IDialogService dialogService, IManifestService manifestService, IVSSolutions solutions)
+        : base(vsixInfo, documents, messageBox, extensions, dialogService, manifestService)
     {
         _solutions = solutions;
     }

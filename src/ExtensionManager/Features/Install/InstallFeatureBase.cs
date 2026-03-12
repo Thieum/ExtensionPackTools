@@ -10,35 +10,25 @@ namespace ExtensionManager.Features.Install;
 
 public abstract class InstallFeatureBase : IFeature, IInstallWorker
 {
-    public sealed class Args
+    private readonly IVSExtensions _extensions;
+    private readonly IVSMessageBox _messageBox;
+    private readonly IDialogService _dialogService;
+    private readonly IExtensionInstaller _installer;
+    private readonly IManifestService _manifestService;
+
+    protected IVSExtensions Extensions => _extensions;
+    protected IVSMessageBox MessageBox => _messageBox;
+    protected IDialogService DialogService => _dialogService;
+    protected IExtensionInstaller Installer => _installer;
+    protected IManifestService ManifestService => _manifestService;
+
+    protected InstallFeatureBase(IVSExtensions extensions, IVSMessageBox messageBox, IDialogService dialogService, IExtensionInstaller installer, IManifestService manifestService)
     {
-        public IVSExtensions Extensions { get; }
-        public IVSMessageBox MessageBox { get; }
-        public IDialogService DialogService { get; }
-        public IExtensionInstaller Installer { get; }
-        public IManifestService ManifestService { get; }
-
-        public Args(IVSExtensions extensions, IVSMessageBox messageBox, IDialogService dialogService, IExtensionInstaller installer, IManifestService manifestService)
-        {
-            Extensions = extensions;
-            MessageBox = messageBox;
-            DialogService = dialogService;
-            Installer = installer;
-            ManifestService = manifestService;
-        }
-    }
-
-    private readonly Args _args;
-
-    protected IVSExtensions Extensions => _args.Extensions;
-    protected IVSMessageBox MessageBox => _args.MessageBox;
-    protected IDialogService DialogService => _args.DialogService;
-    protected IExtensionInstaller Installer => _args.Installer;
-    protected IManifestService ManifestService => _args.ManifestService;
-
-    protected InstallFeatureBase(Args args)
-    {
-        _args = args;
+        _extensions = extensions;
+        _messageBox = messageBox;
+        _dialogService = dialogService;
+        _installer = installer;
+        _manifestService = manifestService;
     }
 
     public async Task ExecuteAsync()

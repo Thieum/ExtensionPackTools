@@ -1,13 +1,16 @@
+using ExtensionManager.Installation;
 using ExtensionManager.Manifest;
 using ExtensionManager.UI;
 using ExtensionManager.UI.Worker;
+using ExtensionManager.VisualStudio.Extensions;
+using ExtensionManager.VisualStudio.MessageBox;
 
 namespace ExtensionManager.Features.Install;
 
 public sealed class InstallFeature : InstallFeatureBase
 {
-    public InstallFeature(Args args)
-        : base(args)
+    public InstallFeature(IVSExtensions extensions, IVSMessageBox messageBox, IDialogService dialogService, IExtensionInstaller installer, IManifestService manifestService)
+        : base(extensions, messageBox, dialogService, installer, manifestService)
     {
     }
 

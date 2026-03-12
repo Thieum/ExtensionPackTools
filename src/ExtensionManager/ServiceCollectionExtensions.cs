@@ -16,8 +16,6 @@ public static class ServiceCollectionExtensions
             .AddDialogService()
             .AddManifestService()
             .AddSingleton(thisVsixInfo)
-            .AddTransient<ExportFeatureBase.Args>()
-            .AddTransient<InstallFeatureBase.Args>()
             .AddTransient<IFeatureExecutor, FeatureExecutor>()
             .AddTransient<IExtensionInstaller, ExtensionInstaller>();
     }

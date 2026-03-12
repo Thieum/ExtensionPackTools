@@ -9,38 +9,28 @@ namespace ExtensionManager.Features.Export;
 
 public abstract class ExportFeatureBase : IFeature, IExportWorker
 {
-    public sealed class Args
+    private readonly IThisVsixInfo _vsixInfo;
+    private readonly IVSDocuments _documents;
+    private readonly IVSMessageBox _messageBox;
+    private readonly IVSExtensions _extensions;
+    private readonly IDialogService _dialogService;
+    private readonly IManifestService _manifestService;
+
+    protected IThisVsixInfo VsixInfo => _vsixInfo;
+    protected IVSDocuments Documents => _documents;
+    protected IVSMessageBox MessageBox => _messageBox;
+    protected IVSExtensions Extensions => _extensions;
+    protected IDialogService DialogService => _dialogService;
+    protected IManifestService ManifestService => _manifestService;
+
+    protected ExportFeatureBase(IThisVsixInfo vsixInfo, IVSDocuments documents, IVSMessageBox messageBox, IVSExtensions extensions, IDialogService dialogService, IManifestService manifestService)
     {
-        public IThisVsixInfo VsixInfo { get; }
-        public IVSDocuments Documents { get; }
-        public IVSMessageBox MessageBox { get; }
-        public IVSExtensions Extensions { get; }
-        public IDialogService DialogService { get; }
-        public IManifestService ManifestService { get; }
-
-        public Args(IThisVsixInfo vsixInfo, IVSDocuments documents, IVSMessageBox messageBox, IVSExtensions extensions, IDialogService dialogService, IManifestService manifestService)
-        {
-            VsixInfo = vsixInfo;
-            Documents = documents;
-            MessageBox = messageBox;
-            Extensions = extensions;
-            DialogService = dialogService;
-            ManifestService = manifestService;
-        }
-    }
-
-    private readonly Args _args;
-
-    protected IThisVsixInfo VsixInfo => _args.VsixInfo;
-    protected IVSDocuments Documents => _args.Documents;
-    protected IVSMessageBox MessageBox => _args.MessageBox;
-    protected IVSExtensions Extensions => _args.Extensions;
-    protected IDialogService DialogService => _args.DialogService;
-    protected IManifestService ManifestService => _args.ManifestService;
-
-    protected ExportFeatureBase(Args args)
-    {
-        _args = args;
+        _vsixInfo = vsixInfo;
+        _documents = documents;
+        _messageBox = messageBox;
+        _extensions = extensions;
+        _dialogService = dialogService;
+        _manifestService = manifestService;
     }
 
     public async Task ExecuteAsync()

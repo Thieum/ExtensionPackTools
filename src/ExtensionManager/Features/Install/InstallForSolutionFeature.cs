@@ -1,7 +1,9 @@
+using ExtensionManager.Installation;
 using ExtensionManager.Manifest;
 using ExtensionManager.UI;
 using ExtensionManager.UI.Worker;
 using ExtensionManager.VisualStudio.Extensions;
+using ExtensionManager.VisualStudio.MessageBox;
 using ExtensionManager.VisualStudio.Solution;
 
 namespace ExtensionManager.Features.Install;
@@ -10,8 +12,8 @@ public sealed class InstallForSolutionFeature : InstallFeatureBase
 {
     private readonly IVSSolutions _solutions;
 
-    public InstallForSolutionFeature(Args args, IVSSolutions solutions)
-        : base(args)
+    public InstallForSolutionFeature(IVSExtensions extensions, IVSMessageBox messageBox, IDialogService dialogService, IExtensionInstaller installer, IManifestService manifestService, IVSSolutions solutions)
+        : base(extensions, messageBox, dialogService, installer, manifestService)
     {
         _solutions = solutions;
     }
